@@ -12,18 +12,35 @@ define(function(require, exports, module) {
   console.log("Loading " + extensionID);
 
   var TSCORE = require("tscore");
+  var _ = require("underscore");
   var extensionDirectory = TSCORE.Config.getExtensionPath() + "/" + extensionID;
+  var scriptDirectory = extensionDirectory + '/js/';
+  var cssDirectory = extensionDirectory + '/css/';
   var UI;
   var extensionLoaded;
 
   function init() {
     console.log("Initializing perspective " + extensionID);
+    var paths = {
+      bootstrapsliderextension: scriptDirectory + 'bootstrap-slider-extension',
+      bootstraptoggleextension: scriptDirectory + 'bootstrap-toggle-extension'
+    },
+        shims = {};
+    var extensionUI = extensionID + '_perspective_ui';
+    paths[extensionUI] = extensionDirectory + '/perspectiveUI';
+    shims[extensionUI] = { deps: ['bootstrapsliderextension', 'bootstraptoggleextension']};
+    requirejs.config({
+      paths: paths,
+      shims: shims
+    });
 
+    // var bootstrap_slider_extension = require(scriptDirectory + 'bootstrap-slider-extension');
+    // var bootstrap_toggle_extension = require(scriptDirectory + 'bootstrap-toggle-extension');
     extensionLoaded = new Promise(function(resolve, reject) {
       require([
-        extensionDirectory + '/perspectiveUI.js',          
+        extensionUI,
         "text!" + extensionDirectory + '/toolbar.html',
-        "marked", 
+        "marked",
         "css!" + extensionDirectory + '/extension.css',                      
       ], function(extUI, toolbarTPL, marked) {
         var toolbarTemplate = Handlebars.compile(toolbarTPL);
