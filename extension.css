@@ -1,3 +1,13 @@
+@import url("../../libs/bootstrap-toggle/css/bootstrap2-toggle.min.css");
+@import url("../../libs/bootstrap-slider/css/bootstrap-slider.min.css");
+@import url("css/bootstrap-slider-extension.css");
+@import url("css/toggle.css");
+
+#perspectiveGridContainer {
+  --file-tile-size: 32vmin;
+  --file-tile-flex: 1 1 var(--file-tile-size);
+}
+
 #gridShowAllFilesContainer {
   display: none;
   width: 100%;
@@ -20,8 +30,8 @@
   padding: 1px 1px 1px 3px;
   border: 1px solid #D4D4D4;
   text-align: left;
-  height: 150px;
-  max-width: 300px;
+  height: var(--file-tile-size);
+  width: var(--file-tile-size);
   overflow: hidden;
   position:relative;
   background-color: white;
@@ -30,9 +40,7 @@
   background-position: center;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
-  flex: 1 1 200px;
-  -webkit-flex: 1 1 200px;
-  -ms-flex: 1 1 200px;
+  flex: var(--file-tile-flex);
 }
 
 .activeRow { background: rgba(29, 209, 159, 0.52) !important; }
@@ -104,7 +112,7 @@
   padding: 1px;
   color: black ;
   z-index: 99;
-	text-transform:uppercase;
+  text-transform:uppercase;
 }
 
 .fileExtension {
@@ -120,6 +128,23 @@
   max-height: 100px;
   vertical-align: text-top;
   border: 0px lightgray solid;
+}
+
+.modal-dialog .modal-body.container {
+  width: 100%;
+}
+
+
+.modal-body .row:first-child {
+  margin-top: 0 !important;
+}
+.modal-body .row:last-child {
+  margin-bottom: 0 !important;
+}
+
+.modal-body .row {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #aboutExtensionModalGrid img {
